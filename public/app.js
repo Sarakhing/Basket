@@ -90,6 +90,7 @@ const S = {
   sessions: LS.get('sessions', []),
   susIndex: 0,
   susAnswers: [],
+  langOpen: false,
   cfg: LS.get('cfg', { url: '', key: '' }),
   online: navigator.onLine,
 };
@@ -303,6 +304,34 @@ function nav(active) {
     `<button data-act="go" data-arg="${id}" class="${active === id ? 'on' : ''}">
        <span class="chip">${ic}</span><span>${esc(label)}</span></button>`).join('')}</div>`;
 }
+/* The language control is deliberately reachable from every screen. A farmer
+   handed a phone mid-task should not have to go back to the start to be
+   understood, and a panel member will want to switch wherever they happen
+   to be standing in the app. */
+function langFab() {
+  if (S.screen === 'lang' || S.screen === 'admin') return '';
+  const L = window.LANGS.find(x => x.code === S.lang) || window.LANGS[0];
+  return `<button class="langfab" data-act="openlang" aria-label="${esc(t('profile.language'))}">
+    ${I.globe}<span>${esc(L.code.toUpperCase())}</span></button>`;
+}
+function langSheet() {
+  return `<div class="overlay" data-act="closelang">
+    <div class="modal langsheet">
+      <div class="grab"></div>
+      <h1>${esc(t('lang.title'))}</h1>
+      <div style="height:12px"></div>
+      ${window.LANGS.map(L => `
+        <button class="row ${S.lang === L.code ? 'sel' : ''}" data-act="setlang" data-arg="${L.code}">
+          <span class="grow"><span class="ttl">${esc(L.name)}</span><br>
+            <span class="sub2">${esc(L.native)}</span></span>
+          ${S.lang === L.code
+            ? `<span class="pill pill-clay"><i class="dot"></i>${esc(L.code.toUpperCase())}</span>`
+            : `<span class="spk">${I.spk}</span>`}
+        </button>`).join('')}
+    </div>
+  </div>`;
+}
+
 const statusPill = (st) => {
   const map = { published: ['pill-green', t('status.published')], sending: ['pill-ochre', t('status.sending')], draft: ['pill-grey', t('status.draft')] };
   const [cls, label] = map[st] || map.draft;
@@ -391,7 +420,7 @@ V.home = () => {
   const near = CROPS.slice(1, 4);
   return `
   <div class="scroll pad has-nav">
-    <div style="display:flex;align-items:center;gap:12px;padding:16px 0 10px">
+    <div style="display:flex;align-items:center;gap:12px;padding:16px 52px 10px 0">
       <div class="grow" style="flex:1">
         <div class="sub" style="margin:0">Eruwa, Oyo State</div>
         <div class="display" style="font-size:30px">Adeola</div>
@@ -422,7 +451,7 @@ V.home = () => {
     <h2 style="margin-top:26px">${esc(t('home.near'))}</h2>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
       ${near.map(c => `<button data-act="go" data-arg="prices" style="text-align:center">
-        ${img(c.id, '')}<div style="font-weight:700;font-size:13px;margin-top:6px">${esc(crop(c.id))}</div>
+        ${img(c.id, 'th-sq')}<div style="font-weight:700;font-size:13px;margin-top:6px">${esc(crop(c.id))}</div>
         <div style="font-size:12px;color:var(--muted)">${naira(c.market)}</div></button>`).join('')}
     </div>
     ${hearBar(t('home.hear'), t('home.sell') + '. ' + t('home.prices') + '. ' + t('home.listings'))}
@@ -505,7 +534,7 @@ V['sell-review'] = () => {
     <div class="progress">${[1,2,3,4].map(() => '<i class="on"></i>').join('')}</div>
     <h1>${esc(t('sell.review.title'))}</h1>
     <div class="card" style="padding:10px;margin-top:12px">
-      ${img(c.id, '')}
+      ${img(c.id, 'th-wide')}
       <div style="padding:14px 8px 6px">
         <div class="display" style="font-size:23px">${esc(crop(c.id))}</div>
         <div class="sub">${S.draft.qty} ${esc(unitName(S.draft.unit, S.draft.qty))}</div>
@@ -549,7 +578,7 @@ V['sell-done'] = () => {
 
 V.prices = () => `
   <div class="scroll pad has-nav">
-    <div style="display:flex;align-items:flex-end;gap:12px;padding:16px 0 4px">
+    <div style="display:flex;align-items:flex-end;gap:12px;padding:16px 52px 4px 0">
       <div style="flex:1">
         <div class="display" style="font-size:29px">${esc(t('prices.title'))}</div>
         <div class="sub">${esc(t('prices.sub'))}</div>
@@ -559,7 +588,7 @@ V.prices = () => `
     <div style="height:10px"></div>
     ${CROPS.map(c => `
       <button class="row" data-act="price" data-arg="${c.id}">
-        ${img(c.id, '')}
+        ${img(c.id, 'th-sm')}
         <span class="grow"><span class="ttl">${esc(crop(c.id))}</span><br>
           <span class="sub2">${esc(t('sell.price.forone'))} ${esc(unitName(c.unit, 1))}</span></span>
         <span style="text-align:right">
@@ -594,14 +623,14 @@ V['price-detail'] = () => {
 
 V['my-listings'] = () => `
   <div class="scroll pad has-nav">
-    <div style="padding:16px 0 4px">
+    <div style="padding:16px 52px 4px 0">
       <div class="display" style="font-size:29px">${esc(t('home.listings'))}</div>
     </div>
     <div style="height:10px"></div>
     ${MY_LISTINGS.map(l => `
       <button class="row" style="align-items:flex-start;flex-direction:column;gap:10px" data-act="open" data-arg="l1">
         <span style="display:flex;gap:14px;align-items:center;width:100%">
-          ${img(l.crop, '')}
+          ${img(l.crop, 'th-md')}
           <span class="grow"><span class="ttl">${esc(crop(l.crop))}</span><br>
             <span class="sub2">${l.qty} ${esc(unitName(l.unit, l.qty))} · ${naira(l.price)}</span></span>
         </span>
@@ -615,7 +644,7 @@ V['my-listings'] = () => `
 
 V.browse = () => `
   <div class="scroll pad has-nav">
-    <div style="padding:16px 0 4px">
+    <div style="padding:16px 52px 4px 0">
       <div class="display" style="font-size:29px">${esc(t('browse.title'))}</div>
       <div class="sub">${esc(t('browse.sub'))}</div>
     </div>
@@ -629,7 +658,7 @@ V.browse = () => `
     <div class="grid2">
       ${LISTINGS.map(l => `
         <button class="card" style="padding:8px;text-align:left" data-act="open" data-arg="${l.id}">
-          ${img(l.crop, '')}
+          ${img(l.crop, 'th-wide')}
           <div style="padding:10px 6px 2px">
             <div style="font-weight:700;font-size:16px">${esc(crop(l.crop))}</div>
             <div class="sub2" style="color:var(--muted);font-size:12.5px">${l.qty} ${esc(unitName(l.unit, l.qty))} ${esc(t('browse.available'))}</div>
@@ -712,7 +741,7 @@ V.contact = () => {
 
 V.enquiries = () => `
   <div class="scroll pad has-nav">
-    <div style="padding:16px 0 4px">
+    <div style="padding:16px 52px 4px 0">
       <div class="display" style="font-size:29px">${esc(t('enq.title'))}</div>
       <div class="sub">${esc(t('enq.sub'))}</div>
     </div>
@@ -740,7 +769,7 @@ V.profile = () => {
   ];
   return `
   <div class="scroll pad has-nav">
-    <div style="padding:16px 0 4px"><div class="display" style="font-size:29px">${esc(t('profile.title'))}</div></div>
+    <div style="padding:16px 52px 4px 0"><div class="display" style="font-size:29px">${esc(t('profile.title'))}</div></div>
     <div class="card" style="display:flex;align-items:center;gap:14px;margin:12px 0 18px">
       <span style="width:60px;height:60px;border-radius:30px;background:var(--clay-tint);display:grid;place-items:center;font-size:24px;font-weight:700;color:var(--clay-dark)">A</span>
       <span><b style="font-size:19px">Adeola</b><br><span class="sub2">0803 456 789 · Eruwa</span></span>
@@ -768,7 +797,7 @@ V['tx-offer'] = () => {
   <div class="scroll pad has-dock">
     <h1>${esc(t('tx.offer.title'))}</h1>
     ${txBanner}
-    <div class="row">${img(l.crop, '')}<span class="grow"><span class="ttl">${esc(crop(l.crop))}</span><br>
+    <div class="row">${img(l.crop, 'th-sm')}<span class="grow"><span class="ttl">${esc(crop(l.crop))}</span><br>
       <span class="sub2">${esc(l.seller)} · ${esc(l.place)}</span></span></div>
     <div class="eyebrow">${esc(t('sell.qty.howmany'))}</div>
     <div class="stepper">
@@ -796,7 +825,7 @@ V['tx-received'] = () => {
     ${txBanner}
     <div class="card sel">
       <div style="display:flex;gap:14px;align-items:center">
-        ${img('cassava', '')}
+        ${img('cassava', 'th-md')}
         <div><div class="display" style="font-size:21px">${S.offer.qty} ${esc(unitName('bag', S.offer.qty))}</div>
         <div class="sub2">${esc(crop('cassava'))}</div></div>
       </div>
@@ -896,7 +925,7 @@ V['tx-confirm'] = () => {
     <p class="sub">${esc(t('tx.confirm.sub'))}</p>
     ${txBanner}
     <div class="card" style="padding:10px">
-      ${img('cassava', '')}
+      ${img('cassava', 'th-wide')}
       <div style="padding:14px 8px 4px;display:flex;justify-content:space-between;align-items:flex-end">
         <span><b style="font-size:18px">${S.offer.qty} ${esc(unitName('bag', S.offer.qty))}</b><br>
           <span class="sub2">${esc(crop('cassava'))}</span></span>
@@ -935,7 +964,7 @@ V['tx-payments'] = () => {
   const list = [['Chidi', 'cassava', total, 'published'], ['Fatima', 'maize', 980000, 'sending'], ['Tunde', 'okra', 66000, 'published']];
   return `
   <div class="scroll pad has-nav">
-    <div style="padding:16px 0 4px"><div class="display" style="font-size:29px">${esc(t('tx.pay.title.short'))}</div></div>
+    <div style="padding:16px 52px 4px 0"><div class="display" style="font-size:29px">${esc(t('tx.pay.title.short'))}</div></div>
     ${txBanner}
     <div style="background:var(--ink);color:#fff;border-radius:22px;padding:20px;box-shadow:var(--shadow-lg)">
       <div style="font-size:12px;opacity:.7">${esc(t('tx.pay.waiting'))}</div>
@@ -1134,7 +1163,10 @@ function render() {
   const fn = V[S.screen] || V.lang;
   const isAdmin = S.screen === 'admin';
   document.getElementById('shell').style.maxWidth = isAdmin ? 'none' : '420px';
-  el.innerHTML = (isAdmin ? '' : facilitatorBar()) + fn();
+  const facil = isAdmin ? '' : facilitatorBar();
+  el.innerHTML = facil + fn() + (isAdmin ? '' : langFab())
+    + (S.langOpen && !isAdmin ? langSheet() : '');
+  document.getElementById('shell').classList.toggle('has-facil', !!facil);
   document.documentElement.lang = S.lang;
   const off = document.getElementById('offline');
   if (off) off.style.display = S.online ? 'none' : 'block';
@@ -1146,7 +1178,9 @@ const ACT = {
   go: (arg) => go(arg),
   open: (arg) => { S.pick = arg; go('listing'); },
   price: (arg) => { S.pick = arg; go('price-detail'); },
-  setlang: (arg) => { S.lang = arg; LS.set('lang', arg); log('lang', arg); render(); },
+  setlang: (arg) => { S.lang = arg; S.langOpen = false; LS.set('lang', arg); log('lang', arg); render(); },
+  openlang: () => { S.langOpen = true; log('lang.open'); render(); },
+  closelang: () => { S.langOpen = false; render(); },
   setrole: (arg) => { S.role = arg; render(); },
   pickcrop: (arg) => { S.draft.crop = arg; const c = CROPS.find(x => x.id === arg);
     S.draft.unit = c.unit; S.draft.price = c.price; log('crop', arg); render(); },
