@@ -1,0 +1,7 @@
+{
+  "name": "basket-marketplace",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Basket — a digital agricultural marketplace for smallholder farmers in Nigeria",
+  "scripts": { "build": "node scripts/fetch-images.mjs" }
+}
