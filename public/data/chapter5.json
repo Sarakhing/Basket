@@ -1,0 +1,1886 @@
+[
+ {
+  "id": "imported-P01",
+  "code": "P01",
+  "literacy": "basic",
+  "phoneBefore": "some",
+  "deviceProvided": "no",
+  "lang": "yo",
+  "startedAt": 1778457600000,
+  "endedAt": 1778458083000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 1,
+    "errors": 3,
+    "state": "completed",
+    "seconds": 102,
+    "unaided": false
+   },
+   "T2": {
+    "assists": 2,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 194,
+    "unaided": false
+   },
+   "T3": {
+    "assists": 1,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 59,
+    "unaided": false
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 66,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 62,
+    "unaided": true
+   }
+  },
+  "sus": [
+   5,
+   2,
+   3,
+   3,
+   4,
+   2,
+   3,
+   2,
+   4,
+   4
+  ],
+  "notes": "Tested interactive prototype on own handset; recognized price figures easily.\nT3 · crop price board · Checked displayed maize and yam rates in Yoruba; compared prototype prices directly against what middlemen offered at Eruwa market. [positive]",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P02",
+  "code": "P02",
+  "literacy": "functional",
+  "phoneBefore": "regular",
+  "deviceProvided": "no",
+  "lang": "yo",
+  "startedAt": 1778457600000,
+  "endedAt": 1778457888000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 72,
+    "unaided": true
+   },
+   "T2": {
+    "assists": 1,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 95,
+    "unaided": false
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 39,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 40,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 42,
+    "unaided": true
+   }
+  },
+  "sus": [
+   4,
+   2,
+   4,
+   2,
+   4,
+   1,
+   5,
+   1,
+   4,
+   2
+  ],
+  "notes": "Completed prototype tasks steadily; noted direct buyer contact saves middleman fees.\nT2 · produce photo capture · Tapped the camera placeholder and captured a produce photo immediately; remarked that visual crop icons made selection intuitive. [positive]",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P03",
+  "code": "P03",
+  "literacy": "none",
+  "phoneBefore": "none",
+  "deviceProvided": "yes",
+  "lang": "yo",
+  "startedAt": 1778457600000,
+  "endedAt": 1778457903000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 2,
+    "errors": 5,
+    "state": "abandoned",
+    "unaided": false
+   },
+   "T2": {
+    "assists": 2,
+    "errors": 5,
+    "state": "abandoned",
+    "unaided": false
+   },
+   "T3": {
+    "assists": 1,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 130,
+    "unaided": false
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 89,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 1,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 84,
+    "unaided": false
+   }
+  },
+  "sus": [
+   5,
+   3,
+   3,
+   4,
+   3,
+   2,
+   4,
+   3,
+   3,
+   3
+  ],
+  "notes": "First time using a touchscreen interface; relied on audio prompt cues in prototype.\nT1 · OTP verification screen · Paused at the 4-digit code screen on the prototype and struggled to locate the green 'Verify' button below the on-screen keyboard. [blocker]",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P04",
+  "code": "P04",
+  "literacy": "fluent",
+  "phoneBefore": "regular",
+  "deviceProvided": "no",
+  "lang": "en",
+  "startedAt": 1778457600000,
+  "endedAt": 1778457795000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 39,
+    "unaided": true
+   },
+   "T2": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 78,
+    "unaided": true
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 29,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 26,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 23,
+    "unaided": true
+   }
+  },
+  "sus": [
+   5,
+   2,
+   5,
+   2,
+   4,
+   1,
+   5,
+   1,
+   5,
+   1
+  ],
+  "notes": "Navigated prototype screens rapidly; compared mock rates with Bodija/Ibadan prices.\nT4 · filter & location bar · Filtered mock buyer listings by Ibarapa East and Ibadan corridors without hesitation; noted that transport cost visibility is critical. [positive]",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P05",
+  "code": "P05",
+  "literacy": "basic",
+  "phoneBefore": "some",
+  "deviceProvided": "no",
+  "lang": "yo",
+  "startedAt": 1778544000000,
+  "endedAt": 1778544520000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 0,
+    "errors": 3,
+    "state": "completed",
+    "seconds": 125,
+    "unaided": true
+   },
+   "T2": {
+    "assists": 0,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 208,
+    "unaided": true
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 60,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 69,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 58,
+    "unaided": false
+   }
+  },
+  "sus": [
+   4,
+   3,
+   4,
+   4,
+   4,
+   2,
+   4,
+   2,
+   4,
+   3
+  ],
+  "notes": "Used WhatsApp voice notes daily; comfortable with camera capture flow in prototype.\nT2 · unit & quantity selector · Paused when entering harvest quantity because 'kg' was unfamiliar; asked whether she could select 'bags' (àpò) or 'baskets' (agbòn). [major]",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P06",
+  "code": "P06",
+  "literacy": "none",
+  "phoneBefore": "none",
+  "deviceProvided": "yes",
+  "lang": "yo",
+  "startedAt": 1778544000000,
+  "endedAt": 1778544628000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 2,
+    "errors": 4,
+    "state": "completed",
+    "seconds": 158,
+    "unaided": false
+   },
+   "T2": {
+    "assists": 3,
+    "errors": 5,
+    "state": "completed",
+    "seconds": 217,
+    "unaided": false
+   },
+   "T3": {
+    "assists": 1,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 116,
+    "unaided": false
+   },
+   "T4": {
+    "assists": 1,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 74,
+    "unaided": false
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 63,
+    "unaided": true
+   }
+  },
+  "sus": [
+   5,
+   2,
+   3,
+   4,
+   4,
+   2,
+   4,
+   3,
+   3,
+   4
+  ],
+  "notes": "Identified crops immediately from prototype icons despite zero reading literacy.\nT1 · registration form · Could not read text labels for full name and community; completed sign-in only after researcher pointed to the audio prompt icon. [blocker]",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P07",
+  "code": "P07",
+  "literacy": "functional",
+  "phoneBefore": "regular",
+  "deviceProvided": "no",
+  "lang": "yo",
+  "startedAt": 1778544000000,
+  "endedAt": 1778544368000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 85,
+    "unaided": true
+   },
+   "T2": {
+    "assists": 1,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 144,
+    "unaided": false
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 55,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 43,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 41,
+    "unaided": true
+   }
+  },
+  "sus": [
+   5,
+   2,
+   5,
+   3,
+   5,
+   2,
+   4,
+   1,
+   4,
+   3
+  ],
+  "notes": "Familiar with Facebook/WhatsApp; appreciated clear produce photo grid in prototype.",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P08",
+  "code": "P08",
+  "literacy": "basic",
+  "phoneBefore": "some",
+  "deviceProvided": "no",
+  "lang": "yo",
+  "startedAt": 1778544000000,
+  "endedAt": 1778544485000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 1,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 94,
+    "unaided": false
+   },
+   "T2": {
+    "assists": 1,
+    "errors": 4,
+    "state": "completed",
+    "seconds": 194,
+    "unaided": false
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 74,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 78,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 45,
+    "unaided": false
+   }
+  },
+  "sus": [
+   5,
+   2,
+   4,
+   4,
+   4,
+   2,
+   4,
+   2,
+   4,
+   4
+  ],
+  "notes": "Recognized numbers easily; hesitated on multi-step listing screens.\nT2 · category grid · Tapped 'yam' tile instead of 'cassava' initially because thumbnail photos looked similar under bright outdoor sunlight. [major]",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P09",
+  "code": "P09",
+  "literacy": "fluent",
+  "phoneBefore": "regular",
+  "deviceProvided": "no",
+  "lang": "en",
+  "startedAt": 1778630400000,
+  "endedAt": 1778630599000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 45,
+    "unaided": true
+   },
+   "T2": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 76,
+    "unaided": true
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 21,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 29,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 28,
+    "unaided": true
+   }
+  },
+  "sus": [
+   5,
+   2,
+   5,
+   1,
+   5,
+   1,
+   4,
+   2,
+   5,
+   1
+  ],
+  "notes": "Navigated prototype flows quickly; noted desire for escrow/mobile money in full build.",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P10",
+  "code": "P10",
+  "literacy": "functional",
+  "phoneBefore": "regular",
+  "deviceProvided": "no",
+  "lang": "yo",
+  "startedAt": 1778630400000,
+  "endedAt": 1778630767000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 50,
+    "unaided": true
+   },
+   "T2": {
+    "assists": 1,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 154,
+    "unaided": false
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 64,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 54,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 45,
+    "unaided": true
+   }
+  },
+  "sus": [
+   4,
+   2,
+   4,
+   2,
+   4,
+   1,
+   4,
+   1,
+   4,
+   3
+  ],
+  "notes": "Suggested adding cooperative group listing option in future production release.",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P11",
+  "code": "P11",
+  "literacy": "basic",
+  "phoneBefore": "some",
+  "deviceProvided": "no",
+  "lang": "yo",
+  "startedAt": 1778630400000,
+  "endedAt": 1778630942000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 108,
+    "unaided": true
+   },
+   "T2": {
+    "assists": 0,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 209,
+    "unaided": true
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 88,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 76,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 61,
+    "unaided": true
+   }
+  },
+  "sus": [
+   4,
+   3,
+   4,
+   3,
+   4,
+   2,
+   4,
+   2,
+   3,
+   3
+  ],
+  "notes": "Prefers Yoruba interface; switched language toggle at start of prototype session.\nT5 · contact buyer modal · Preferred the direct 'Call Buyer' button over in-app text chat; stated phone calls build trust before moving produce. [positive]",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P12",
+  "code": "P12",
+  "literacy": "basic",
+  "phoneBefore": "some",
+  "deviceProvided": "yes",
+  "lang": "yo",
+  "startedAt": 1778630400000,
+  "endedAt": 1778630952000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 1,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 141,
+    "unaided": false
+   },
+   "T2": {
+    "assists": 1,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 202,
+    "unaided": false
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 58,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 80,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 71,
+    "unaided": true
+   }
+  },
+  "sus": [
+   4,
+   3,
+   3,
+   3,
+   4,
+   2,
+   3,
+   2,
+   4,
+   3
+  ],
+  "notes": "Needed brief clarification on unit measurement (bag vs basket/kongo) on listing screen.",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P13",
+  "code": "P13",
+  "literacy": "fluent",
+  "phoneBefore": "regular",
+  "deviceProvided": "no",
+  "lang": "yo",
+  "startedAt": 1778716800000,
+  "endedAt": 1778717020000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 41,
+    "unaided": true
+   },
+   "T2": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 89,
+    "unaided": true
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 24,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 42,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 24,
+    "unaided": true
+   }
+  },
+  "sus": [
+   5,
+   2,
+   5,
+   2,
+   5,
+   1,
+   5,
+   2,
+   5,
+   1
+  ],
+  "notes": "Completed all prototype tasks quickly; operates 3 hectares near Eruwa Farm Settlement.",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P14",
+  "code": "P14",
+  "literacy": "none",
+  "phoneBefore": "none",
+  "deviceProvided": "yes",
+  "lang": "yo",
+  "startedAt": 1778716800000,
+  "endedAt": 1778717069000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 2,
+    "errors": 3,
+    "state": "abandoned",
+    "unaided": false
+   },
+   "T2": {
+    "assists": 3,
+    "errors": 3,
+    "state": "abandoned",
+    "unaided": false
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 112,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 1,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 102,
+    "unaided": false
+   },
+   "T5": {
+    "assists": 1,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 55,
+    "unaided": false
+   }
+  },
+  "sus": [
+   5,
+   3,
+   3,
+   4,
+   4,
+   2,
+   4,
+   2,
+   3,
+   4
+  ],
+  "notes": "Preferred voice/audio guidance in Yoruba throughout the prototype walkthrough.\nT2 · price input field · Entered '150' instead of '150,000' Naira for a pickup load of cassava because zero-padding was unclear without comma formatting. [blocker]",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P15",
+  "code": "P15",
+  "literacy": "functional",
+  "phoneBefore": "regular",
+  "deviceProvided": "no",
+  "lang": "yo",
+  "startedAt": 1778716800000,
+  "endedAt": 1778717123000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 90,
+    "unaided": true
+   },
+   "T2": {
+    "assists": 1,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 119,
+    "unaided": false
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 34,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 39,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 41,
+    "unaided": true
+   }
+  },
+  "sus": [
+   5,
+   1,
+   4,
+   2,
+   4,
+   2,
+   4,
+   1,
+   4,
+   2
+  ],
+  "notes": "Asked how offline caching would work in live app due to weak MTN/Airtel signal on farm road.\nT3 · price trend indicator · Understood the upward green arrow next to pepper prices immediately without reading the legend. [positive]",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P16",
+  "code": "P16",
+  "literacy": "fluent",
+  "phoneBefore": "regular",
+  "deviceProvided": "no",
+  "lang": "en",
+  "startedAt": 1778716800000,
+  "endedAt": 1778716993000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 36,
+    "unaided": true
+   },
+   "T2": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 68,
+    "unaided": true
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 35,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 24,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 30,
+    "unaided": true
+   }
+  },
+  "sus": [
+   5,
+   2,
+   5,
+   2,
+   4,
+   1,
+   5,
+   2,
+   4,
+   2
+  ],
+  "notes": "Youth agripreneur; tested English prototype configuration smoothly.",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P17",
+  "code": "P17",
+  "literacy": "none",
+  "phoneBefore": "none",
+  "deviceProvided": "yes",
+  "lang": "yo",
+  "startedAt": 1778803200000,
+  "endedAt": 1778803701000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 3,
+    "errors": 3,
+    "state": "completed",
+    "seconds": 205,
+    "unaided": false
+   },
+   "T2": {
+    "assists": 3,
+    "errors": 6,
+    "state": "abandoned",
+    "unaided": false
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 130,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 108,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 1,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 58,
+    "unaided": false
+   }
+  },
+  "sus": [
+   5,
+   2,
+   4,
+   4,
+   4,
+   3,
+   3,
+   3,
+   3,
+   4
+  ],
+  "notes": "Needed encouragement to tap interactive tiles on researcher-supplied baseline phone.\nT4 · listing cards · Scrolled smoothly through produce cards; paused briefly on the 'verified buyer' badge to ask what the checkmark meant. [minor]",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P18",
+  "code": "P18",
+  "literacy": "fluent",
+  "phoneBefore": "regular",
+  "deviceProvided": "no",
+  "lang": "en",
+  "startedAt": 1778803200000,
+  "endedAt": 1778803384000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 51,
+    "unaided": true
+   },
+   "T2": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 61,
+    "unaided": true
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 25,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 26,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 21,
+    "unaided": true
+   }
+  },
+  "sus": [
+   5,
+   2,
+   4,
+   2,
+   5,
+   2,
+   4,
+   2,
+   4,
+   1
+  ],
+  "notes": "Navigated English prototype rapidly; suggested SMS fallback for non-smartphone peers.",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P19",
+  "code": "P19",
+  "literacy": "basic",
+  "phoneBefore": "some",
+  "deviceProvided": "no",
+  "lang": "yo",
+  "startedAt": 1778803200000,
+  "endedAt": 1778803674000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 0,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 96,
+    "unaided": true
+   },
+   "T2": {
+    "assists": 1,
+    "errors": 3,
+    "state": "completed",
+    "seconds": 199,
+    "unaided": false
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 78,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 48,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 53,
+    "unaided": true
+   }
+  },
+  "sus": [
+   5,
+   2,
+   3,
+   4,
+   4,
+   2,
+   3,
+   2,
+   4,
+   4
+  ],
+  "notes": "Hesitated on quantity input screen; comfortable browsing produce cards.",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P20",
+  "code": "P20",
+  "literacy": "functional",
+  "phoneBefore": "some",
+  "deviceProvided": "no",
+  "lang": "ha",
+  "startedAt": 1778803200000,
+  "endedAt": 1778803517000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 81,
+    "unaided": true
+   },
+   "T2": {
+    "assists": 1,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 117,
+    "unaided": false
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 35,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 59,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 25,
+    "unaided": true
+   }
+  },
+  "sus": [
+   5,
+   1,
+   5,
+   3,
+   4,
+   2,
+   5,
+   2,
+   4,
+   2
+  ],
+  "notes": "Tested Hausa prototype configuration; appreciated localized crop names.\nT3 · search & crop list · Located guinea corn and melon (egusi) prices quickly in Hausa configuration; appreciated localized crop names. [positive]",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P21",
+  "code": "P21",
+  "literacy": "functional",
+  "phoneBefore": "regular",
+  "deviceProvided": "no",
+  "lang": "yo",
+  "startedAt": 1778889600000,
+  "endedAt": 1778889948000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 79,
+    "unaided": true
+   },
+   "T2": {
+    "assists": 1,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 144,
+    "unaided": false
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 41,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 53,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 31,
+    "unaided": true
+   }
+  },
+  "sus": [
+   5,
+   1,
+   4,
+   3,
+   4,
+   1,
+   4,
+   1,
+   4,
+   2
+  ],
+  "notes": "Completed prototype tasks steadily; liked visual crop price board.",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P22",
+  "code": "P22",
+  "literacy": "basic",
+  "phoneBefore": "some",
+  "deviceProvided": "no",
+  "lang": "yo",
+  "startedAt": 1778889600000,
+  "endedAt": 1778890091000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 1,
+    "errors": 3,
+    "state": "completed",
+    "seconds": 105,
+    "unaided": false
+   },
+   "T2": {
+    "assists": 0,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 214,
+    "unaided": true
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 82,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 48,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 42,
+    "unaided": true
+   }
+  },
+  "sus": [
+   4,
+   2,
+   3,
+   3,
+   4,
+   2,
+   3,
+   3,
+   4,
+   4
+  ],
+  "notes": "Needed brief clarification on unit measurement (bag vs basket) during listing task.\nT2 · submit listing button · Tapped 'Save Draft' instead of 'Publish' because both buttons shared similar visual weight at the bottom of the screen. [major]",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P23",
+  "code": "P23",
+  "literacy": "none",
+  "phoneBefore": "none",
+  "deviceProvided": "yes",
+  "lang": "yo",
+  "startedAt": 1778889600000,
+  "endedAt": 1778890317000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 2,
+    "errors": 5,
+    "state": "completed",
+    "seconds": 226,
+    "unaided": false
+   },
+   "T2": {
+    "assists": 3,
+    "errors": 3,
+    "state": "completed",
+    "seconds": 243,
+    "unaided": false
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 88,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 80,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 1,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 80,
+    "unaided": false
+   }
+  },
+  "sus": [
+   4,
+   2,
+   3,
+   4,
+   3,
+   2,
+   4,
+   3,
+   3,
+   3
+  ],
+  "notes": "Relied heavily on audio cues and crop icons; unfamiliar with touchscreen gestures.",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P24",
+  "code": "P24",
+  "literacy": "fluent",
+  "phoneBefore": "regular",
+  "deviceProvided": "no",
+  "lang": "yo",
+  "startedAt": 1778889600000,
+  "endedAt": 1778889798000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 49,
+    "unaided": true
+   },
+   "T2": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 84,
+    "unaided": true
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 28,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 22,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 15,
+    "unaided": true
+   }
+  },
+  "sus": [
+   4,
+   1,
+   4,
+   2,
+   4,
+   1,
+   5,
+   2,
+   5,
+   1
+  ],
+  "notes": "Tested English prototype configuration; completed all five tasks without assists.\nT5 · WhatsApp / call handoff · Tapped the WhatsApp/call action button on the buyer profile cleanly; completed the contact flow in under 20 seconds. [positive]",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P25",
+  "code": "P25",
+  "literacy": "basic",
+  "phoneBefore": "some",
+  "deviceProvided": "yes",
+  "lang": "yo",
+  "startedAt": 1778976000000,
+  "endedAt": 1778976472000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 1,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 119,
+    "unaided": false
+   },
+   "T2": {
+    "assists": 0,
+    "errors": 4,
+    "state": "completed",
+    "seconds": 173,
+    "unaided": true
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 72,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 60,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 48,
+    "unaided": false
+   }
+  },
+  "sus": [
+   5,
+   2,
+   4,
+   4,
+   4,
+   2,
+   4,
+   3,
+   3,
+   4
+  ],
+  "notes": "Used researcher baseline phone; switched to Yoruba interface immediately.\nT1 · phone number field · Entered leading zero twice (+234 080...) causing a validation error; error message text was too small to notice. [major]",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P26",
+  "code": "P26",
+  "literacy": "functional",
+  "phoneBefore": "regular",
+  "deviceProvided": "no",
+  "lang": "yo",
+  "startedAt": 1778976000000,
+  "endedAt": 1778976303000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 95,
+    "unaided": true
+   },
+   "T2": {
+    "assists": 1,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 91,
+    "unaided": false
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 38,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 51,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 28,
+    "unaided": true
+   }
+  },
+  "sus": [
+   4,
+   2,
+   5,
+   3,
+   4,
+   2,
+   5,
+   1,
+   4,
+   2
+  ],
+  "notes": "Asked about live buyer verification process before committing produce.",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P27",
+  "code": "P27",
+  "literacy": "basic",
+  "phoneBefore": "some",
+  "deviceProvided": "no",
+  "lang": "en",
+  "startedAt": 1778976000000,
+  "endedAt": 1778976284000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 1,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 103,
+    "unaided": false
+   },
+   "T2": {
+    "assists": 2,
+    "errors": 4,
+    "state": "abandoned",
+    "unaided": false
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 2,
+    "state": "completed",
+    "seconds": 63,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 77,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 41,
+    "unaided": false
+   }
+  },
+  "sus": [
+   5,
+   2,
+   4,
+   4,
+   4,
+   2,
+   4,
+   3,
+   3,
+   4
+  ],
+  "notes": "Tested English/Pidgin flow; browsed buyer requests and farm-gate offers smoothly.\nT4 · browse listings screen · Switched cleanly between buyer requests and farm-gate offers; asked if the live app would still work when data drops to 2G. [minor]",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P28",
+  "code": "P28",
+  "literacy": "fluent",
+  "phoneBefore": "regular",
+  "deviceProvided": "no",
+  "lang": "en",
+  "startedAt": 1778976000000,
+  "endedAt": 1778976184000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 48,
+    "unaided": true
+   },
+   "T2": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 72,
+    "unaided": true
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 19,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 20,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 25,
+    "unaided": true
+   }
+  },
+  "sus": [
+   4,
+   2,
+   5,
+   2,
+   5,
+   2,
+   4,
+   1,
+   4,
+   1
+  ],
+  "notes": "Youth farmer; navigated all prototype screens in under 3 minutes total.",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P29",
+  "code": "P29",
+  "literacy": "functional",
+  "phoneBefore": "some",
+  "deviceProvided": "no",
+  "lang": "yo",
+  "startedAt": 1779062400000,
+  "endedAt": 1779062730000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 66,
+    "unaided": true
+   },
+   "T2": {
+    "assists": 1,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 146,
+    "unaided": false
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 32,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 39,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 0,
+    "state": "completed",
+    "seconds": 47,
+    "unaided": true
+   }
+  },
+  "sus": [
+   5,
+   2,
+   4,
+   3,
+   5,
+   2,
+   5,
+   1,
+   4,
+   2
+  ],
+  "notes": "Paused briefly at camera capture step; liked direct call counterparty flow.\nT2 · camera permission prompt · Hesitated at the camera access prompt in English before tapping 'Allow' after a brief verbal cue. [minor]",
+  "synced": false,
+  "imported": true
+ },
+ {
+  "id": "imported-P30",
+  "code": "P30",
+  "literacy": "none",
+  "phoneBefore": "none",
+  "deviceProvided": "yes",
+  "lang": "yo",
+  "startedAt": 1779062400000,
+  "endedAt": 1779063052000,
+  "events": [],
+  "tasks": {
+   "T1": {
+    "assists": 3,
+    "errors": 3,
+    "state": "completed",
+    "seconds": 155,
+    "unaided": false
+   },
+   "T2": {
+    "assists": 3,
+    "errors": 5,
+    "state": "completed",
+    "seconds": 195,
+    "unaided": false
+   },
+   "T3": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 118,
+    "unaided": true
+   },
+   "T4": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 107,
+    "unaided": true
+   },
+   "T5": {
+    "assists": 0,
+    "errors": 1,
+    "state": "completed",
+    "seconds": 77,
+    "unaided": true
+   }
+  },
+  "sus": [
+   4,
+   3,
+   3,
+   4,
+   4,
+   3,
+   4,
+   3,
+   3,
+   4
+  ],
+  "notes": "Recognized phone receiver icon immediately; preferred audio prompts over text.\nT5 · buyer profile card · Recognized the phone receiver icon immediately and tapped to call counterparty without assistance despite zero reading literacy. [positive]",
+  "synced": false,
+  "imported": true
+ }
+]

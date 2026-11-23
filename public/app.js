@@ -141,7 +141,9 @@ function finishTask(state) {
   const rec = S.session.tasks[task.id];
   rec.state = state; rec.endedAt = Date.now();
   rec.seconds = Math.round((rec.endedAt - rec.startedAt) / 1000);
-  rec.unaided = state === 'completed' && rec.assists === 0 && rec.errors === 0;
+  // Codebook: completion = 2 means no intervention of any kind. Errors are
+  // counted separately and do not disqualify a task from being unaided.
+  rec.unaided = state === 'completed' && rec.assists === 0;
   log('task.' + state, task.id);
   const next = TASKS[TASKS.indexOf(task) + 1];
   if (next) S.session.tasks[next.id] = { startedAt: Date.now(), assists: 0, errors: 0, state: 'running' };
@@ -195,8 +197,10 @@ function stats(list) {
   out.meanSus = mean(out.sus);
   out.sdSus = out.sus.length > 1
     ? Math.sqrt(out.sus.reduce((acc, v) => acc + (v - out.meanSus) ** 2, 0) / (out.sus.length - 1)) : null;
+  // Exact median. An even sample gives a .5 value; rounding it hides the
+  // fact and makes the figure impossible to reconcile against the raw data.
   out.median = a => { if (!a.length) return null; const b = [...a].sort((x, y) => x - y); const m = b.length >> 1;
-    return b.length % 2 ? b[m] : Math.round((b[m - 1] + b[m]) / 2); };
+    return b.length % 2 ? b[m] : (b[m - 1] + b[m]) / 2; };
   return out;
 }
 
@@ -308,7 +312,8 @@ function taskRows(list) {
 }
 
 function buildWorkbook() {
-  const list = S.sessions.slice().reverse();   // chronological, P01 first
+  const list = S.sessions.slice().sort((a, b) =>
+    String(a.code || a.id).localeCompare(String(b.code || b.id), undefined, { numeric: true }));
   const sheets = [
     { name: `${list.length} Respondent Summary`, rows: summaryRows(list),
       widths: [16, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 12, 14] },
@@ -321,6 +326,166 @@ function buildWorkbook() {
   }));
   return window.XLSX.build(sheets);
 }
+
+/* ------------------------------------------------- importing recorded data
+   Reads the project's Chapter Five workbook (participants, task performance,
+   SUS responses, observations) so previously collected sessions appear on
+   the dashboard alongside anything recorded on this device. Also accepts a
+   SUS-only summary workbook, in which case task figures stay empty. */
+const LANG_CODE = { EN: 'en', HA: 'ha', IG: 'ig', YO: 'yo',
+  ENGLISH: 'en', HAUSA: 'ha', IGBO: 'ig', YORUBA: 'yo' };
+
+function headerIndex(row) {
+  const ix = {};
+  (row || []).forEach((h, i) => {
+    const k = String(h || '').trim().toLowerCase();
+    if (k) ix[k] = i;
+  });
+  return ix;
+}
+function excelDate(v) {
+  if (typeof v === 'number' && v > 20000) return Math.round((v - 25569) * 86400000);
+  const t = Date.parse(v);
+  return isFinite(t) ? t : Date.now();
+}
+
+function importWorkbook(parsed) {
+  const pick = re => parsed.names.find(n => re.test(n));
+  const nameParts = pick(/participant/i);
+  const nameTasks = pick(/task/i);
+  const nameSus   = pick(/sus|respondent summary/i);
+  const nameObs   = pick(/observation/i);
+
+  const byId = new Map();
+  const rec = id => {
+    id = String(id).trim();
+    if (!byId.has(id)) byId.set(id, {
+      id: 'imported-' + id, code: id, literacy: '', phoneBefore: '', deviceProvided: '',
+      lang: 'en', startedAt: Date.now(), endedAt: null, events: [], tasks: {},
+      sus: null, notes: '', synced: false, imported: true,
+    });
+    return byId.get(id);
+  };
+
+  /* participants */
+  if (nameParts) {
+    const rows = parsed.sheets[nameParts] || [];
+    const ix = headerIndex(rows[0]);
+    for (let r = 1; r < rows.length; r++) {
+      const id = rows[r] && rows[r][ix['participant_id'] ?? 0];
+      if (!id) continue;
+      const s2 = rec(id);
+      const lit = String(rows[r][ix['literacy_level']] || '').trim().toLowerCase();
+      if (lit) s2.literacy = lit;
+      s2.phoneBefore = String(rows[r][ix['prior_smartphone_use']] || '').trim().toLowerCase();
+      const dev = String(rows[r][ix['device_used']] || '').trim().toLowerCase();
+      s2.deviceProvided = dev === 'provided' ? 'yes' : dev === 'own' ? 'no' : dev;
+      const lang = String(rows[r][ix['language_config_used']] ?? rows[r][ix['primary_language']] ?? '').trim().toUpperCase();
+      if (LANG_CODE[lang]) s2.lang = LANG_CODE[lang];
+      if (ix['session_date'] !== undefined) s2.startedAt = excelDate(rows[r][ix['session_date']]);
+      const note = rows[r][ix['notes']];
+      if (note) s2.notes = String(note);
+    }
+  }
+
+  /* task performance — two header rows, then blocks of four columns per task */
+  if (nameTasks) {
+    const rows = parsed.sheets[nameTasks] || [];
+    const sub = (rows[1] || []).map(x => String(x || '').trim().toLowerCase());
+    for (let r = 2; r < rows.length; r++) {
+      const id = rows[r] && rows[r][0];
+      if (!id || !String(id).trim()) continue;
+      const s2 = rec(id);
+      for (let c = 1; c < sub.length; c++) {
+        const ti = Math.floor((c - 1) / 4);
+        if (ti >= TASKS.length) break;
+        const task = TASKS[ti].id;
+        const v = rows[r][c];
+        const t = s2.tasks[task] || (s2.tasks[task] = { assists: 0, errors: 0 });
+        if (sub[c] === 'completion') {
+          if (v === '' || v === null || v === undefined) { delete s2.tasks[task]; continue; }
+          const n = Number(v);
+          t.state = n === 0 ? 'abandoned' : 'completed';
+          t.unaidedRaw = n === 2;
+        } else if (sub[c] === 'errors')   t.errors = Number(v) || 0;
+        else if (sub[c] === 'time_sec')   { if (v !== '' && v !== null) t.seconds = Number(v) || 0; }
+        else if (sub[c] === 'assists')    t.assists = Number(v) || 0;
+      }
+      Object.values(s2.tasks).forEach(t => {
+        t.unaided = t.state === 'completed' && (t.unaidedRaw === true || (t.unaidedRaw === undefined && !t.assists));
+        delete t.unaidedRaw;
+      });
+      s2.endedAt = s2.startedAt + Object.values(s2.tasks)
+        .reduce((n, t) => n + (t.seconds || 0), 0) * 1000;
+    }
+  }
+
+  /* SUS responses */
+  if (nameSus) {
+    const rows = parsed.sheets[nameSus] || [];
+    let head = 0;
+    while (head < rows.length && !(rows[head] || []).some(c => /participant/i.test(String(c)))) head++;
+    const ix = headerIndex(rows[head]);
+    const qCol = n => ix['q' + n];
+    for (let r = head + 1; r < rows.length; r++) {
+      const id = rows[r] && rows[r][ix['participant id'] ?? ix['participant_id'] ?? 0];
+      if (!id || !/^P/i.test(String(id).trim())) continue;
+      const s2 = rec(id);
+      const ans = [];
+      for (let n = 1; n <= 10; n++) {
+        const v = Number(rows[r][qCol(n)]);
+        if (!isFinite(v) || v < 1 || v > 5) { ans.length = 0; break; }
+        ans.push(v);
+      }
+      if (ans.length === 10) s2.sus = ans;
+      const la = String(rows[r][ix['language_administered'] ?? ix['language']] || '').trim().toUpperCase();
+      if (LANG_CODE[la]) s2.lang = LANG_CODE[la];
+    }
+  }
+
+  /* observations become facilitator notes */
+  if (nameObs) {
+    const rows = parsed.sheets[nameObs] || [];
+    const ix = headerIndex(rows[0]);
+    const extra = {};
+    for (let r = 1; r < rows.length; r++) {
+      const id = rows[r] && rows[r][ix['participant_id'] ?? 0];
+      if (!id) continue;
+      const line = [rows[r][ix['task']], rows[r][ix['screen_or_element']],
+                    rows[r][ix['what_happened']]].filter(Boolean).join(' · ');
+      const sev = rows[r][ix['severity']];
+      (extra[String(id).trim()] = extra[String(id).trim()] || []).push(line + (sev ? ` [${sev}]` : ''));
+    }
+    Object.entries(extra).forEach(([id, lines]) => {
+      const s2 = rec(id);
+      s2.notes = [s2.notes, ...lines].filter(Boolean).join('\n');
+    });
+  }
+
+  const imported = [...byId.values()].filter(x => x.sus || Object.keys(x.tasks).length);
+  const live = S.sessions.filter(x => !x.imported);
+  imported.sort((a, b) => String(a.code).localeCompare(String(b.code), undefined, { numeric: true }));
+  S.sessions = [...live, ...imported];
+  LS.set('sessions', S.sessions);
+  return { count: imported.length, withSus: imported.filter(x => x.sus).length,
+           withTasks: imported.filter(x => Object.keys(x.tasks).length).length };
+}
+
+window.importFile = async (input) => {
+  const file = input.files && input.files[0];
+  input.value = '';
+  if (!file) return;
+  try {
+    const parsed = await window.XLSXRead.parse(await file.arrayBuffer());
+    const res = importWorkbook(parsed);
+    render();
+    alert(res.count
+      ? `Imported ${res.count} participants — ${res.withSus} with SUS responses, ${res.withTasks} with task data.`
+      : 'Nothing recognisable found. Expected sheets named Participants, Task performance and SUS responses.');
+  } catch (err) {
+    alert('Could not read that file: ' + err.message);
+  }
+};
 
 function saveBlob(blob, filename) {
   const a = document.createElement('a');
@@ -1180,15 +1345,20 @@ V.admin = () => {
     <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
       <div style="flex:1;min-width:200px">
         <div class="display" style="font-size:28px">${esc(t('app.name'))}</div>
-        <div class="sub">Usability results · ${st.n} session${st.n === 1 ? '' : 's'} stored on this device</div>
+        <div class="sub">Usability results · ${st.n} participant${st.n === 1 ? '' : 's'}${
+        S.sessions.filter(x => x.imported).length
+          ? ` (${S.sessions.filter(x => x.imported).length} imported)` : ' recorded here'}</div>
       </div>
       <button class="btn btn-quiet" style="width:auto;min-height:44px" data-act="go" data-arg="home">Back to app</button>
       <button class="btn btn-quiet" style="width:auto;min-height:44px" data-act="sync">Sync</button>
+      <label class="btn btn-quiet" style="width:auto;min-height:44px;cursor:pointer">Import workbook
+        <input type="file" accept=".xlsx" style="display:none" onchange="window.importFile(this)"></label>
       <button class="btn btn-quiet" style="width:auto;min-height:44px" data-act="csv">CSV</button>
       <button class="btn btn-primary" style="width:auto;min-height:44px" data-act="workbook">Export evaluation workbook</button>
     </div>
     <div class="kpis">
-      ${[['Participants', st.n, 'sessions completed'],
+      ${[['Participants', st.n, (() => { const imp = S.sessions.filter(x => x.imported).length, live = st.n - imp;
+            return live && imp ? `${live} here · ${imp} imported` : imp ? 'from the study data' : 'recorded on this device'; })()],
          ['Mean SUS', st.meanSus === null ? '—' : st.meanSus.toFixed(1),
            st.sdSus === null ? 'needs 2+ sessions' : 'SD ' + st.sdSus.toFixed(1)],
          ['Tasks completed', pct(st.completed, st.attempts), st.completed + ' of ' + st.attempts + ' attempts'],
@@ -1372,6 +1542,24 @@ window.addEventListener('online',  () => { S.online = true;  render(); syncAll()
 window.addEventListener('offline', () => { S.online = false; render(); });
 setInterval(() => { if (S.session && currentTask() && S.screen !== 'admin') {
   const bar = document.querySelector('.facil'); if (bar) bar.outerHTML = facilitatorBar(); } }, 1000);
+
+/* The project's own evaluation data ships with the app, so the dashboard is
+   populated on a fresh device without anyone having to find a file first.
+   It loads only when nothing has been recorded or imported here. */
+async function loadSeed() {
+  if (S.sessions.length) return;
+  try {
+    const r = await fetch('data/chapter5.json');
+    if (!r.ok) return;
+    const seed = await r.json();
+    if (!Array.isArray(seed) || !seed.length) return;
+    if (S.sessions.length) return;
+    S.sessions = seed;
+    LS.set('sessions', S.sessions);
+    render();
+  } catch {}
+}
+loadSeed();
 
 if (location.hash === '#admin') S.screen = 'admin';
 window.addEventListener('hashchange', () => { if (location.hash === '#admin') go('admin'); });
