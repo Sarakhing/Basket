@@ -223,6 +223,113 @@ async function syncAll() {
   for (const s of S.sessions) if (!s.synced && await syncOne(s)) n++;
   return n;
 }
+/* ---------------------------------------------------- evaluation workbook
+   Reproduces the project's own questionnaire workbook: a summary of SUS
+   responses, a task-performance sheet, and one filled questionnaire per
+   participant with the chosen box ticked. */
+const LANG_NAME = { en: 'English', ha: 'Hausa', ig: 'Igbo', yo: 'Yoruba' };
+const SCALE_HEAD = ['1\nStrongly disagree', '2\nDisagree', '3\nNeither agree nor disagree',
+                    '4\nAgree', '5\nStrongly agree'];
+const TITLE1 = 'FARMER USABILITY EVALUATION QUESTIONNAIRE';
+const TITLE2 = 'User-Centered Design and Usability Evaluation of a Digital Agricultural '
+             + 'Marketplace for Smallholder Farmers in Nigeria';
+
+function participantRows(sess) {
+  const ans = sess.sus || [];
+  const d = new Date(sess.startedAt);
+  const rows = [];
+  rows[0] = [{ v: TITLE1, s: 1 }];
+  rows[1] = [TITLE2];
+  rows[2] = [];
+  rows[3] = [{ v: 'PARTICIPANT INFORMATION', s: 1 }];
+  rows[4] = ['Participant ID', sess.code || sess.id, '', 'Date', d.toISOString().slice(0, 10)];
+  rows[5] = ['Preferred language', LANG_NAME[sess.lang] || sess.lang, '', 'Facilitator', sess.facilitator || ''];
+  rows[6] = [];
+  rows[7] = [{ v: 'HOW TO ANSWER', s: 1 }];
+  rows[8] = ['Choose one answer for each statement. If needed, the facilitator can read each '
+           + "statement aloud in the participant's preferred language and record the answer."];
+  rows[9] = [];
+  rows[10] = [{ v: 'No.', s: 2 }, { v: 'Statement', s: 2 }, ...SCALE_HEAD.map(h => ({ v: h, s: 2 }))];
+  window.SUS_ITEMS.forEach((item, i) => {
+    rows[11 + i] = [i + 1, { v: item, s: 3 },
+      ...[1, 2, 3, 4, 5].map(n => (ans[i] === n ? '\u2713' : '\u2610'))];
+  });
+  rows[21] = [];
+  rows[22] = [{ v: 'FACILITATOR NOTES (OPTIONAL)', s: 1 }];
+  rows[23] = [{ v: sess.notes || '', s: 3 }];
+  rows[24] = [];
+  rows[25] = [];
+  return rows;
+}
+
+function summaryRows(list) {
+  const rows = [];
+  rows[0] = [{ v: `SUS RESPONSES \u2014 ${list.length} PARTICIPANT${list.length === 1 ? '' : 'S'}`, s: 1 }];
+  rows[1] = [];
+  rows[2] = [{ v: 'Participant ID', s: 1 },
+    ...[1,2,3,4,5,6,7,8,9,10].map(n => ({ v: 'Q' + n, s: 1 })),
+    { v: 'SUS score', s: 1 }, { v: 'Language', s: 1 }];
+  list.forEach((sess, i) => {
+    const ans = sess.sus || [];
+    const sc = susScore(sess.sus);
+    rows[3 + i] = [sess.code || sess.id,
+      ...[0,1,2,3,4,5,6,7,8,9].map(k => (typeof ans[k] === 'number' ? ans[k] : '')),
+      sc === null ? '' : sc, LANG_NAME[sess.lang] || sess.lang];
+  });
+  return rows;
+}
+
+function taskRows(list) {
+  const rows = [];
+  rows[0] = [{ v: 'TASK PERFORMANCE', s: 1 }];
+  rows[1] = [];
+  const head = ['Participant ID', 'Literacy', 'Used smartphone before', 'Device provided', 'Language'];
+  TASKS.forEach(t2 => head.push(t2.id + ' outcome', t2.id + ' time (s)', t2.id + ' assists', t2.id + ' errors'));
+  head.push('Tasks completed', 'Completed unaided', 'Total assists', 'Total errors', 'SUS score', 'Session (min)');
+  rows[2] = head.map(h => ({ v: h, s: 2 }));
+  list.forEach((sess, i) => {
+    const r = [sess.code || sess.id, sess.literacy, sess.phoneBefore, sess.deviceProvided,
+               LANG_NAME[sess.lang] || sess.lang];
+    let done = 0, unaided = 0, a = 0, e = 0;
+    TASKS.forEach(t2 => {
+      const rec = (sess.tasks || {})[t2.id] || {};
+      r.push(rec.state || '', typeof rec.seconds === 'number' ? rec.seconds : '',
+             rec.assists || 0, rec.errors || 0);
+      if (rec.state === 'completed') done++;
+      if (rec.unaided) unaided++;
+      a += rec.assists || 0; e += rec.errors || 0;
+    });
+    const sc = susScore(sess.sus);
+    r.push(done, unaided, a, e, sc === null ? '' : sc,
+           sess.endedAt ? Math.max(1, Math.round((sess.endedAt - sess.startedAt) / 60000)) : '');
+    rows[3 + i] = r;
+  });
+  return rows;
+}
+
+function buildWorkbook() {
+  const list = S.sessions.slice().reverse();   // chronological, P01 first
+  const sheets = [
+    { name: `${list.length} Respondent Summary`, rows: summaryRows(list),
+      widths: [16, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 12, 14] },
+    { name: 'Task Performance', rows: taskRows(list),
+      widths: [16, 13, 20, 16, 12].concat(Array(20).fill(12), [15, 16, 13, 12, 11, 13]) },
+  ];
+  list.forEach(sess => sheets.push({
+    name: sess.code || sess.id, rows: participantRows(sess),
+    widths: [6, 62, 16, 13, 24, 13, 16],
+  }));
+  return window.XLSX.build(sheets);
+}
+
+function saveBlob(blob, filename) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+
 function toCSV() {
   const head = ['session','code','literacy','phone_before','device_provided','lang','sus',
     ...TASKS.flatMap(t2 => [t2.id + '_state', t2.id + '_secs', t2.id + '_assists', t2.id + '_errors', t2.id + '_unaided'])];
@@ -984,6 +1091,10 @@ V['tx-payments'] = () => {
 
 /* -------------------------------------------------------------- session */
 let setup = { code: '', literacy: 'none', phoneBefore: 'no', deviceProvided: 'yes', lang: 'yo' };
+const nextCode = () => 'P' + String(S.sessions.length + 1).padStart(2, '0');
+/* The chips re-render the screen, so the field must write straight to state
+   or a typed code is lost the moment the facilitator taps Literacy. */
+window.setParticipantCode = (v) => { setup.code = v; };
 
 V['session-setup'] = () => `
   <div class="facil"><i class="live"></i> FACILITATOR</div>
@@ -994,7 +1105,8 @@ V['session-setup'] = () => `
     <div class="eyebrow">PARTICIPANT CODE</div>
     <div class="field" style="min-height:62px">
       <input id="pcode" class="val" style="border:0;outline:0;background:transparent;width:100%"
-             placeholder="P-31" value="${esc(setup.code)}" autocomplete="off">
+             placeholder="${esc(nextCode())}" value="${esc(setup.code)}" autocomplete="off"
+             oninput="window.setParticipantCode(this.value)">
     </div>
     ${[['LITERACY', 'literacy', [['none','None'],['basic','Basic'],['functional','Functional'],['fluent','Fluent']]],
        ['USED A SMARTPHONE BEFORE', 'phoneBefore', [['yes','Yes'],['no','No']]],
@@ -1018,7 +1130,7 @@ V.sus = () => {
     <h1>${esc(item)}</h1>
     ${hearBar(t('common.listen'), item)}
     <div style="height:6px"></div>
-    ${[5,4,3,2,1].map(v => `
+    ${[1,2,3,4,5].map(v => `
       <button class="row ${S.susAnswers[i] === v ? 'sel' : ''}" data-act="sus" data-arg="${v}">
         <span style="width:42px;height:42px;border-radius:21px;background:${S.susAnswers[i] === v ? 'var(--clay)' : 'var(--bg)'};color:${S.susAnswers[i] === v ? '#fff' : 'var(--muted)'};display:grid;place-items:center;font-weight:700">${v}</span>
         <span class="grow ttl">${esc(scale[v - 1])}</span>
@@ -1049,9 +1161,12 @@ V['session-done'] = () => {
          ['Synced', s.synced ? 'Yes' : 'Not yet']]
         .map(([k, v]) => `<div class="srow"><span>${esc(k)}</span><span>${esc(v)}</span></div>`).join('')}
     </div>
+    <div class="eyebrow">FACILITATOR NOTES</div>
+    <textarea id="snotes" rows="3" placeholder="What happened, in your words. Goes into the workbook."
+      style="width:100%;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--surface);font:inherit;resize:vertical">${esc(s.notes || '')}</textarea>
     <div class="banner banner-ochre center">Not shown to the participant.</div>
   </div>
-  ${dock(btn('Next participant', 'go', 'secondary', 'session-setup'), btn('Open results', 'go', 'quiet', 'admin'))}`;
+  ${dock(btn('Save and next participant', 'donenext', 'secondary'), btn('Open results', 'doneadmin', 'quiet'))}`;
 };
 
 /* ---------------------------------------------------------------- admin */
@@ -1069,7 +1184,8 @@ V.admin = () => {
       </div>
       <button class="btn btn-quiet" style="width:auto;min-height:44px" data-act="go" data-arg="home">Back to app</button>
       <button class="btn btn-quiet" style="width:auto;min-height:44px" data-act="sync">Sync</button>
-      <button class="btn btn-primary" style="width:auto;min-height:44px" data-act="csv">Export CSV</button>
+      <button class="btn btn-quiet" style="width:auto;min-height:44px" data-act="csv">CSV</button>
+      <button class="btn btn-primary" style="width:auto;min-height:44px" data-act="workbook">Export evaluation workbook</button>
     </div>
     <div class="kpis">
       ${[['Participants', st.n, 'sessions completed'],
@@ -1203,7 +1319,7 @@ const ACT = {
   setup: (arg) => { const [f, v] = arg.split(':'); setup[f] = v; if (f === 'lang') { S.lang = v; LS.set('lang', v); } render(); },
   startsession: () => {
     const input = document.getElementById('pcode');
-    setup.code = (input && input.value.trim()) || ('P-' + (S.sessions.length + 1));
+    setup.code = ((input && input.value.trim()) || setup.code || '').trim() || nextCode();
     startSession(setup);
     S.susIndex = 0; S.susAnswers = [];
     S.stack = []; go('lang', { replace: true });
@@ -1226,12 +1342,21 @@ const ACT = {
   },
   sync: () => syncAll().then(n => alert(`${n} session${n === 1 ? '' : 's'} synced.`)),
   csv: () => {
-    const blob = new Blob([toCSV()], { type: 'text/csv' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'basket-sessions-' + new Date().toISOString().slice(0, 10) + '.csv';
-    a.click(); URL.revokeObjectURL(a.href);
+    saveBlob(new Blob([toCSV()], { type: 'text/csv;charset=utf-8' }),
+      'basket-sessions-' + new Date().toISOString().slice(0, 10) + '.csv');
   },
+  workbook: () => {
+    if (!S.sessions.length) { alert('No sessions recorded on this device yet.'); return; }
+    try { saveBlob(buildWorkbook(), 'Farmer_Usability_Evaluation_'
+      + S.sessions.length + '_Respondents.xlsx'); }
+    catch (err) { alert('Could not build the workbook: ' + err.message); }
+  },
+  savenote: () => {
+    const el = document.getElementById('snotes');
+    if (el && S.sessions[0]) { S.sessions[0].notes = el.value; LS.set('sessions', S.sessions); }
+  },
+  donenext: () => { ACT.savenote(); go('session-setup'); },
+  doneadmin: () => { ACT.savenote(); go('admin'); },
 };
 
 document.addEventListener('click', (e) => {

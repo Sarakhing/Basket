@@ -196,16 +196,16 @@ window.STRINGS = {
    replaced by "awkward" following Finstad, because the original does not
    survive oral translation. */
 window.SUS_ITEMS = [
-  'I think that I would like to use this app frequently.',
-  'I found the app unnecessarily complex.',
-  'I thought the app was easy to use.',
-  'I think I would need help from a person to be able to use this app.',
-  'I found the various functions in this app were well integrated.',
-  'I thought there was too much inconsistency in this app.',
-  'I would imagine that most people would learn to use this app very quickly.',
-  'I found the app very awkward to use.',
-  'I felt very confident using the app.',
-  'I needed to learn a lot of things before I could get going with this app.',
+  'I think that I would like to use this system frequently.',
+  'I found the system unnecessarily complex.',
+  'I thought the system was easy to use.',
+  'I think that I would need the support of a technical person to be able to use this system.',
+  'I found the various functions in this system were well integrated.',
+  'I thought there was too much inconsistency in this system.',
+  'I would imagine that most people would learn to use this system very quickly.',
+  'I found the system very awkward to use.',
+  'I felt very confident using the system.',
+  'I needed to learn a lot of things before I could get going with this system.',
 ];
 window.SUS_SCALE = {
   en: ['Strongly disagree', 'Disagree', 'Neither', 'Agree', 'Strongly agree'],

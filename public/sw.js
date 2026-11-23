@@ -1,8 +1,8 @@
 /* Basket service worker — cache-first so the app opens with no network.
    Field sessions happen where connectivity is poor; this is the point. */
-const CACHE = 'basket-v2';
+const CACHE = 'basket-v3';
 const CORE = ['./', 'index.html', 'styles.css', 'strings.js', 'app.js',
-  'manifest.webmanifest', 'icon.svg', 'icon-maskable.svg',
+  'manifest.webmanifest', 'icon.svg', 'icon-maskable.svg', 'xlsx.js',
   'img/cassava.png', 'img/maize.png', 'img/yam.png',
   'img/pepper.png', 'img/tomato.png', 'img/okra.png', 'img/hero.png',
   /*FONTS*/];
